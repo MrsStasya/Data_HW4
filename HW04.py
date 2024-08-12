@@ -29,7 +29,7 @@ response = requests.get(url, headers = {
 tree = html.fromstring(response.content)
 
 # Использование выражения XPath для выбора всех строк таблицы в пределах таблицы 
-table_rows = tree.xpath("//table[@class='table yf-ewueuo noDl']/thead/tr")
+table_rows = tree.xpath("//table[@class='table yf-ewueuo noDl']/tbody/tr")
 
 
 # # Использование выражения XPath для выбора всего текстового содержимого элементов 'th' в первой строке таблицы
@@ -40,7 +40,7 @@ list_data = []
 
 # найдем в строке текст
 for row in table_rows:
-   columns = row.xpath(".//th/text()")
+   columns = row.xpath(".//td/text()")
    
    # Записываем спарсенные данные в список через словарь
    list_data.append({
@@ -52,6 +52,7 @@ for row in table_rows:
       'Adj Close': columns[5].strip(),
       'Volume': columns[6].strip()
    })
+
 
 
 # Все уберем в pandas
